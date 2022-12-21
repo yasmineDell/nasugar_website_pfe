@@ -1,0 +1,429 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+		<link href="style.css" rel="stylesheet" />
+
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+		/>
+
+		<title>Ajouter médicament</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row flex-nowrap">
+				<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id="menu-col">
+					<div
+						class="
+							d-flex
+							flex-column
+							align-items-center align-items-sm-start
+							px-3
+							pt-2
+							text-white
+							min-vh-100
+						"
+					>
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								pb-3
+								mb-md-0
+								me-md-auto
+								text-white text-decoration-none
+							"
+						>
+							<div class="pe-2"><i class="bi bi-droplet-fill"></i></div>
+
+							<span class="fs-5 d-none d-sm-inline">NaSugr</span>
+						</a>
+
+						<ul
+							class="
+								nav nav-pills
+								flex-column
+								mb-sm-auto mb-0
+								align-items-center align-items-sm-start
+							"
+							id="menu"
+						>
+							<li class="nav-item">
+								<a href="acceuil.html" class="nav-link align-middle px-0 ps-3">
+									<i class="bi bi-house-door-fill" id="icon"></i>
+									<span class="ms-1 d-none d-sm-inline" id="item">Acceuil</span>
+								</a>
+							</li>
+
+							<hr />
+							<!-- Heading -->
+							<div class="sidebar-heading">Medecin</div>
+							<li></li>
+
+							<li>
+								<div class="ps-3">
+									<a
+										href="Profile_medecin.html"
+										class="nav-link px-0 align-middle"
+									>
+										<i class="bi bi-person-fill" id="icon"></i>
+										<span class="ms-1 d-none d-sm-inline" id="item"
+											>Mon profil</span
+										>
+									</a>
+								</div>
+							</li>
+
+							<li>
+								<div class="ms-3">
+									<a href="Agendat.html" class="nav-link px-0 align-middle">
+										<i class="bi bi-calendar-fill" id="icon"></i>
+										<span class="ms-1 d-none d-sm-inline" id="item"
+											>Mon agenda</span
+										></a
+									>
+								</div>
+							</li>
+
+							<li>
+								<div class="ms-3">
+									<a href="rdv.html" class="nav-link px-0 align-middle">
+										<i class="bi bi-app-indicator" id="icon"></i>
+										<span class="ms-1 d-none d-sm-inline" id="item"
+											>Demandes rdv</span
+										></a
+									>
+								</div>
+							</li>
+
+							<hr />
+
+							<div class="sidebar-heading">Patient</div>
+
+							<!-- Nav Item - Tables -->
+							<li class="nav-item">
+								<div class="ms-3">
+									<a href="liste.html" class="nav-link px-0 align-middle">
+										<i class="bi bi-list" id="icon"></i>
+										<span id="item">Liste des patients</span>
+									</a>
+								</div>
+							</li>
+
+							<!-- Nav Item - Pages Collapse Menu -->
+							<li class="nav-item">
+								<a
+									class="nav-link collapsed"
+									href="login.html"
+									data-toggle="collapse"
+									data-target="#collapsePages"
+									aria-expanded="true"
+									aria-controls="collapsePages"
+								>
+									<i class="bi bi-box-arrow-left" id="icon"></i>
+									<span id="item">Se deconnecter</span>
+								</a>
+								<div
+									id="collapsePages"
+									class="collapse"
+									aria-labelledby="headingPages"
+									data-parent="#accordionSidebar"
+								>
+									<div class="bg-white py-2 collapse-inner rounded"></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col py-3">
+					<!--Navigation bar -->
+					<nav class="navbar navbar-expand-lg navbar-light bg-white">
+						<div class="container-fluid">
+							<button
+								class="navbar-toggler"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#navbarSupportedContent"
+								aria-controls="navbarSupportedContent"
+								aria-expanded="false"
+								aria-label="Toggle navigation"
+							>
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<div
+								class="collapse navbar-collapse"
+								id="navbarSupportedContent"
+							></div>
+						</div>
+					</nav>
+
+					<!--Nav bar ends here -->
+
+					<h3 id="titre" class="mt-5 mx-5 mb-4">
+						Ajouter un nouveau Medicament
+					</h3>
+
+					<div class="card m-5">
+						<!-- here starts the doctors info-->
+
+						<div
+							class="
+								col
+								d-flex
+								flex-column flex-sm-row
+								justify-content-between
+								m-5
+							"
+						>
+							<div class="text-center text-sm-left mb-2 mb-sm-0">
+								<h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">
+									Dr.Timsiline Katiya
+								</h4>
+								<p class="mb-0">Medecin diabétologue</p>
+
+								<div class="text-muted">
+									<small>cité El worod batiment 7 étage 1 N° 4 Alger</small>
+								</div>
+								<div class="text-muted">
+									<small>E-mail katiya@gmail.com</small>
+								</div>
+								<div class="text-muted"><small>N° Tel 0556704606</small></div>
+							</div>
+
+							<div class="text-center text-sm-right">
+								<span class="badge badge-secondary"></span>
+								<div class="row ps-5">
+									<div class="col">
+										<div class="text-muted"><small>Date</small></div>
+										<input
+											class="form-control"
+											type="text"
+											name="date"
+											placeholder=""
+											value=""
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- here ends the doctors info-->
+
+						<ul class="nav nav-tabs">
+							<li class="nav-item">
+								<a href="" class="active nav-link">Ordonnance</a>
+							</li>
+						</ul>
+						<div class="tab-content pt-3">
+							<div class="tab-pane active"></div>
+						</div>
+						<!-- here start the name and age inputs-->
+						<div class="row">
+							<div class="col-3 m-3">
+								<div class="form-group">
+									<label>Nom et prénom</label>
+									<input
+										class="form-control"
+										type="text"
+										name="name"
+										placeholder=""
+										value=""
+									/>
+								</div>
+							</div>
+							<div class="col-2 m-3">
+								<div class="form-group">
+									<label>Age</label>
+									<input
+										class="form-control"
+										type="text"
+										name="email"
+										placeholder=""
+										id="email"
+									/>
+								</div>
+							</div>
+						</div>
+
+						<!-- here ends the name and age text field-->
+						<div class="m-5">
+							<label>Medicaments</label>
+							<hr />
+						</div>
+
+						<div class="card-body">
+							<!-- in here i put the form -->
+
+							<div class="content" id="">
+								<div class="col-xl-6">
+									<div
+										class="
+											container
+											p-3
+											ms-5
+											rounded-3
+											border-2 border border-white
+										"
+										id="container1"
+									>
+										<div class="col" id="modal-add">
+											<form id="add_medic_form">
+												<div class="row">
+													<div class="col">
+														<label id="label">Nom médicament </label>
+													</div>
+
+													<div class="col-8">
+														<input
+															type="text"
+															class="form-control"
+															name="NomMedicament"
+															id="NomMedicament"
+														/>
+													</div>
+												</div>
+
+												<br />
+
+												<div class="row">
+													<div class="col">
+														<label id="label">Dose</label>
+													</div>
+													<div class="col-8">
+														<input
+															type="text"
+															class="form-control"
+															name="dose"
+															id="dose"
+														/>
+													</div>
+												</div>
+
+												<br />
+
+												<div class="row">
+													<div class="col">
+														<label id="label">Temps</label>
+													</div>
+													<div class="col-8">
+														<input
+															type="text"
+															class="form-control"
+															name="Time"
+															id="Time"
+														/>
+													</div>
+												</div>
+
+												<br />
+
+												<div class="row">
+													<div class="col">
+														<label id="label">Durée</label>
+													</div>
+
+													<div class="col-8">
+														<input
+															type="text"
+															class="form-control"
+															name="Period"
+															id="Period"
+														/>
+													</div>
+												</div>
+
+												<br />
+
+												<!-- <button type="button" class="btn" id="addBtn">Ajouter</button> -->
+												<!-- <button >S'inscrire</button> -->
+												<a href="acceuil.html">
+													<form action="acceuil.html">
+														<input
+															type="submit"
+															class="btn btn-primary"
+															value="valider"
+														/>
+													</form>
+												</a>
+
+												<!-- </div> -->
+											</form>
+										</div>
+									</div>
+								</div>
+
+								<!-- the form ends here -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"
+		></script>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+		<script>
+			// Your web app's Firebase configuration
+			// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+			var firebaseConfig = {
+				apiKey: "AIzaSyDPVIEZnnWIRX0fCOa6I2Cdv_ecQDIQYqY",
+				authDomain: "myfb-f304c.firebaseapp.com",
+				projectId: "myfb-f304c",
+				storageBucket: "myfb-f304c.appspot.com",
+				messagingSenderId: "136371102543",
+				appId: "1:136371102543:web:8a4847f99fdea7a1cadb3a",
+				measurementId: "G-CN89WMMXS9",
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+
+			// make auth and firestore refrences
+
+			const db = firebase.firestore();
+
+			// update firestore settings
+			db.settings({ timestampsInSnapshots: true });
+		</script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"
+		></script>
+
+		<script src="medicament1.js"></script>
+	</body>
+</html>

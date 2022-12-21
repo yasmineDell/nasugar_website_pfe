@@ -1,0 +1,372 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+		<link href="style.css" rel="stylesheet" />
+
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+		/>
+
+		<title>Info</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row flex-nowrap">
+				<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id="menu-col">
+					<div
+						class="
+							d-flex
+							flex-column
+							align-items-center align-items-sm-start
+							px-3
+							pt-2
+							text-white
+							min-vh-100
+						"
+					>
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								pb-3
+								mb-md-0
+								me-md-auto
+								text-white text-decoration-none
+							"
+						>
+							<div class="pe-2"><i class="bi bi-droplet-fill"></i></div>
+
+							<span class="fs-5 d-none d-sm-inline">NaSugr</span>
+						</a>
+
+						<ul
+							class="
+								nav nav-pills
+								flex-column
+								mb-sm-auto mb-0
+								align-items-center align-items-sm-start
+							"
+							id="menu"
+						>
+							<li class="nav-item">
+								<a href="acceuil.html" class="nav-link align-middle px-0 ps-3">
+									<i class="bi bi-house-door-fill" id="icon"></i>
+									<span class="ms-1 d-none d-sm-inline" id="item">Acceuil</span>
+								</a>
+							</li>
+
+							<hr />
+							<!-- Heading -->
+							<div class="sidebar-heading">Medecin</div>
+							<li></li>
+
+							<li>
+								<div class="ps-3">
+									<a
+										href="Profile_medecin.html"
+										class="nav-link px-0 align-middle"
+									>
+										<i class="bi bi-person-fill" id="icon"></i>
+										<span class="ms-1 d-none d-sm-inline" id="item"
+											>Mon profil</span
+										>
+									</a>
+								</div>
+							</li>
+
+							<li>
+								<div class="ms-3">
+									<a href="Agendat.html" class="nav-link px-0 align-middle">
+										<i class="bi bi-calendar-fill" id="icon"></i>
+										<span class="ms-1 d-none d-sm-inline" id="item"
+											>Mon agenda</span
+										></a
+									>
+								</div>
+							</li>
+
+							<li>
+								<div class="ms-3">
+									<a href="rdv.html" class="nav-link px-0 align-middle">
+										<i class="bi bi-app-indicator" id="icon"></i>
+										<span class="ms-1 d-none d-sm-inline" id="item"
+											>Demandes rdv</span
+										></a
+									>
+								</div>
+							</li>
+
+							<!-- </li> -->
+
+							<hr />
+
+							<div class="sidebar-heading">Patient</div>
+
+							<!-- Nav Item - Tables -->
+							<li class="nav-item">
+								<div class="ms-3">
+									<a href="liste.html" class="nav-link px-0 align-middle">
+										<i class="bi bi-list" id="icon"></i>
+										<span id="item">Liste des patients</span>
+									</a>
+								</div>
+							</li>
+
+							<!-- Nav Item - Pages Collapse Menu -->
+							<li class="nav-item">
+								<a
+									class="nav-link collapsed"
+									href="login.html"
+									data-toggle="collapse"
+									data-target="#collapsePages"
+									aria-expanded="true"
+									aria-controls="collapsePages"
+								>
+									<i class="bi bi-box-arrow-left" id="icon"></i>
+									<span id="item">Se deconnecter</span>
+								</a>
+								<div
+									id="collapsePages"
+									class="collapse"
+									aria-labelledby="headingPages"
+									data-parent="#accordionSidebar"
+								>
+									<div class="bg-white py-2 collapse-inner rounded"></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col py-3">
+					<!--Navigation bar -->
+					<nav class="navbar navbar-expand-lg navbar-light bg-white">
+						<div class="container-fluid">
+							<button
+								class="navbar-toggler"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#navbarSupportedContent"
+								aria-controls="navbarSupportedContent"
+								aria-expanded="false"
+								aria-label="Toggle navigation"
+							>
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<div class="collapse navbar-collapse" id="navbarSupportedContent">
+								<form class="d-flex">
+									<input
+										class="form-control me-2"
+										type="search"
+										placeholder="Recherche..."
+										aria-label="Search"
+									/>
+									<button class="btn btn-outline-primary" type="submit">
+										<i class="bi bi-search"></i>
+									</button>
+								</form>
+							</div>
+						</div>
+					</nav>
+
+					<!--Nav bar ends here -->
+					<div
+						class="
+							d-sm-flex
+							align-items-center
+							justify-content-between
+							mt-5
+							mx-5
+						"
+					>
+						<h1 class="h3 mb-0 text-gray-800">Profil patient</h1>
+					</div>
+
+					<!-- Second navigationbar-->
+					<div class="m-3">
+						<nav class="navbar navbar-expand-lg navbar-light">
+							<div class="container-fluid">
+								<button
+									class="navbar-toggler"
+									type="button"
+									data-bs-toggle="collapse"
+									data-bs-target="#navbarNavAltMarkup"
+									aria-controls="navbarNavAltMarkup"
+									aria-expanded="false"
+									aria-label="Toggle navigation"
+								>
+									<span class="navbar-toggler-icon"></span>
+								</button>
+								<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+									<div class="navbar-nav">
+										<a class="nav-link active" href="info.html">Info</a>
+										<a class="nav-link" href="graphiques.html">Graphes</a>
+										<a class="nav-link" href="Dossier.html">Dossier médical</a>
+										<a class="nav-link" href="fiche.html">Fiche de suivi</a>
+										<a class="nav-link" href="ordonance.html">Ordonnance</a>
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+
+					<!-- Second navigationbar ends here -->
+
+					<div class="row">
+						<!-- info personnelles -->
+
+						<div class="col-lg-6 mb-4">
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold">
+										Informations personnelles
+									</h6>
+								</div>
+								<div class="card-body">
+									<!-- ************************ I put the infos here ------------------->
+									<div class="row">
+										<div class="col-sm-4">
+											<h6 class="mb-0">Nom et prénom</h6>
+										</div>
+										<div class="col-sm-5 text-secondary">Maini Mohammed</div>
+									</div>
+									<br />
+									<div class="row">
+										<div class="col-sm-4">
+											<h6 class="mb-0">Email</h6>
+										</div>
+										<div class="col-sm-5 text-secondary">maini@gmail.com</div>
+									</div>
+									<br />
+									<div class="row">
+										<div class="col-sm-4">
+											<h6 class="mb-0">Date de naissance</h6>
+										</div>
+										<div class="col-sm-5 text-secondary">24/02/1967</div>
+									</div>
+									<br />
+									<div class="row">
+										<div class="col-sm-4">
+											<h6 class="mb-0">N° Tel</h6>
+										</div>
+										<div class="col-sm-5 text-secondary">0557879856</div>
+									</div>
+
+									<br />
+
+									<a class="btn btn-info text-white" href="ModifierInfoPat.html"
+										>Modifier</a
+									>
+								</div>
+							</div>
+						</div>
+						<!-- info generale -->
+
+						<div class="col-lg-6 mb-4">
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold">Informations générales</h6>
+								</div>
+								<div class="card-body">
+									<div class="text-center">
+										<!-- I put type diabete et tt -->
+
+										<div class="row">
+											<div class="col-sm-5">
+												<h6 class="mb-0">Type de diabète</h6>
+											</div>
+											<div class="col-sm-6 text-secondary">Type 1</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-5">
+												<h6 class="mb-0">Poids</h6>
+											</div>
+											<div class="col-sm-6 text-secondary">80 KG</div>
+										</div>
+										<br />
+										<div class="row">
+											<div class="col-sm-5">
+												<h6 class="mb-0">Taille</h6>
+											</div>
+											<div class="col-sm-6 text-secondary">1.78 m</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<br />
+					<br />
+
+					<!--   graphiques  -->
+					<div class="row">
+						<!-- glycémie -->
+						<h6 class="ms-5" id="h6">Taux de glycémie</h6>
+						<div class="col-6 ms-5">
+							<div class="card">
+								<div class="card-body">
+									This is some text within a card body.
+								</div>
+							</div>
+						</div>
+						<!-- iactivité physique-->
+						<div class="col-4 ms-5">
+							<div class="card">
+								<div class="card-body">
+									This is some text within a card body.
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!--Affichage des patients-->
+					<!-- 
+    <h1>Cloud Cafe</h1>
+
+    <div class="content">
+
+        <form id="add-cafe-form"></form>
+
+        <ul id="cafe-list"></ul>
+
+    </div>
+     -->
+				</div>
+			</div>
+		</div>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"
+		></script>
+
+		<script src="app1.js"></script>
+	</body>
+</html>

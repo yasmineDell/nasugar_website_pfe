@@ -1,0 +1,815 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+		<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+		<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+		<link href="style.css" rel="stylesheet" />
+
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+		/>
+
+		<title>liste des patients</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- style tae tableau  -->
+		<script src="jquery-1.12.4.min.js"></script>
+
+		<style>
+			a {
+				color: #000000;
+				text-decoration: underline;
+			}
+			a:visited {
+				color: #800080;
+			}
+			a:active {
+				color: #ff0000;
+			}
+			a:hover {
+				color: #000000;
+			}
+			input:focus,
+			textarea:focus,
+			select:focus {
+				outline: none;
+			}
+			#wb_LayoutGrid1 {
+				clear: both;
+				position: relative;
+				table-layout: fixed;
+				display: table;
+				text-align: center;
+				width: 100%;
+				background-color: transparent;
+				background-image: none;
+				border: 0px solid #cccccc;
+				box-sizing: border-box;
+				margin: 0;
+			}
+			#LayoutGrid1 {
+				box-sizing: border-box;
+				padding: 25px 15px 0px 15px;
+				margin-right: auto;
+				margin-left: auto;
+			}
+			#LayoutGrid1 > .row {
+				margin-right: -15px;
+				margin-left: -15px;
+			}
+			#LayoutGrid1 > .row > .col-1,
+			#LayoutGrid1 > .row > .col-2,
+			#LayoutGrid1 > .row > .col-3 {
+				box-sizing: border-box;
+				font-size: 0px;
+				min-height: 1px;
+				padding-right: 15px;
+				padding-left: 15px;
+				position: relative;
+			}
+			#LayoutGrid1 > .row > .col-1,
+			#LayoutGrid1 > .row > .col-2,
+			#LayoutGrid1 > .row > .col-3 {
+				float: left;
+			}
+			#LayoutGrid1 > .row > .col-1 {
+				background-color: transparent;
+				background-image: none;
+				border: 0px solid #ffffff;
+				width: 8.33333333%;
+				text-align: left;
+			}
+			#LayoutGrid1 > .row > .col-2 {
+				background-color: transparent;
+				background-image: none;
+				border: 0px solid #ffffff;
+				width: 83.33333333%;
+				text-align: left;
+			}
+			#LayoutGrid1 > .row > .col-3 {
+				background-color: transparent;
+				background-image: none;
+				border: 0px solid #ffffff;
+				width: 8.33333333%;
+				text-align: left;
+			}
+			#LayoutGrid1:before,
+			#LayoutGrid1:after,
+			#LayoutGrid1 .row:before,
+			#LayoutGrid1 .row:after {
+				display: table;
+				content: " ";
+			}
+			#LayoutGrid1:after,
+			#LayoutGrid1 .row:after {
+				clear: both;
+			}
+			@media (max-width: 480px) {
+				#LayoutGrid1 > .row > .col-1,
+				#LayoutGrid1 > .row > .col-2,
+				#LayoutGrid1 > .row > .col-3 {
+					float: none;
+					width: 100% !important;
+				}
+			}
+			#wb_Extension1 * {
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			#wb_Extension1 {
+				color: #000000;
+				font-family: Arial;
+				font-weight: normal;
+				font-size: 13px;
+				font-style: normal;
+				overflow: auto;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			#tbl_account_list td a {
+				color: #000000;
+				text-decoration: none;
+			}
+			#tbl_account_list td a:hover {
+				text-decoration: underline;
+			}
+			#Extension1-pagination {
+				display: inline-block;
+				list-style: none;
+				padding: 0;
+				border-radius: 4px;
+				font-family: Arial;
+				font-weight: normal;
+				font-size: 0;
+			}
+			#Extension1-pagination > li {
+				display: inline;
+				font-size: 13px;
+			}
+			#Extension1-pagination > li > a,
+			#Extension1-pagination > li > span {
+				position: relative;
+				float: left;
+				padding: 6px 12px 6px 12px;
+				text-decoration: none;
+				background-color: #ffffff;
+				border: 1px #dddddd solid;
+				color: #428bca;
+				margin-left: -1px;
+			}
+			#Extension1-pagination > li:first-child > a,
+			#Extension1-pagination > li:first-child > span {
+				margin-left: 0;
+				-webkit-border-bottom-left-radius: 4px;
+				-moz-border-bottom-left-radius: 4px;
+				border-bottom-left-radius: 4px;
+				-webkit-border-top-left-radius: 4px;
+				-moz-border-top-left-radius: 4px;
+				border-top-left-radius: 4px;
+			}
+			#Extension1-pagination > li:last-child > a,
+			#Extension1-pagination > li:last-child > span {
+				-webkit-border-bottom-right-radius: 4px;
+				-moz-border-bottom-right-radius: 4px;
+				border-bottom-right-radius: 4px;
+				-webkit-border-top-right-radius: 4px;
+				-moz-border-top-right-radius: 4px;
+				border-top-right-radius: 4px;
+			}
+			#Extension1-pagination > li > a:hover,
+			#Extension1-pagination > li > span:hover,
+			#Extension1-pagination > li > a:focus,
+			#Extension1-pagination > li > span:focus {
+				background-color: #cccccc;
+				color: #23527c;
+			}
+			#Extension1-pagination > .active > a,
+			#Extension1-pagination > .active > span,
+			#Extension1-pagination > .active > a:hover,
+			#Extension1-pagination > .active > span:hover,
+			#Extension1-pagination > .active > a:focus,
+			#Extension1-pagination > .active > span:focus {
+				z-index: 2;
+				background-color: #428bca;
+				border-color: #428bca;
+				color: #ffffff;
+				cursor: default;
+			}
+			#Extension1-pagination > .disabled > span,
+			#Extension1-pagination > .disabled > span:hover,
+			#Extension1-pagination > .disabled > span:focus,
+			#Extension1-pagination > .disabled > a,
+			#Extension1-pagination > .disabled > a:hover,
+			#Extension1-pagination > .disabled > a:focus {
+				background-color: #ffffff;
+				color: #777777;
+				cursor: not-allowed;
+			}
+			.clickable {
+				cursor: pointer;
+			}
+			#tbl_account_list th a {
+				color: #000000;
+				text-decoration: none;
+			}
+			#tbl_account_list th a:hover {
+				text-decoration: underline;
+			}
+			#wb_Extension1 td,
+			th {
+				padding: 0;
+			}
+			#wb_Extension1 table {
+				max-width: 100%;
+				background-color: transparent;
+			}
+			#wb_Extension1 .table {
+				border-collapse: collapse;
+				border-spacing: 0;
+				width: 100%;
+				margin-bottom: 20px;
+			}
+			#wb_Extension1 .panel {
+				margin-bottom: 20px;
+				background-color: #ffffff;
+				border: 1px solid #4e73df;
+				border-radius: 3px;
+				-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+				box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+			}
+			#wb_Extension1 .panel-heading {
+				padding: 10px 15px;
+				border-bottom: 1px solid transparent;
+				border-top-right-radius: 3px;
+				border-top-left-radius: 3px;
+				color: #ffffff;
+				background-color: #4e73df;
+				border-color: #4e73df;
+			}
+			#wb_Extension1 .panel-body {
+				padding: 15px;
+			}
+			#wb_Extension1
+				.panel
+				> :last-child.table
+				> tbody:last-child
+				> tr:last-child
+				td:first-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table-responsive
+				> :last-child.table
+				> tbody:last-child
+				> tr:last-child
+				td:first-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table
+				> tfoot:last-child
+				> tr:last-child
+				td:first-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table-responsive
+				> :last-child.table
+				> tfoot:last-child
+				> tr:last-child
+				td:first-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table
+				> tbody:last-child
+				> tr:last-child
+				th:first-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table-responsive
+				> :last-child.table
+				> tbody:last-child
+				> tr:last-child
+				th:first-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table
+				> tfoot:last-child
+				> tr:last-child
+				th:first-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table-responsive
+				> :last-child.table
+				> tfoot:last-child
+				> tr:last-child
+				th:first-child {
+				border-bottom-left-radius: 3px;
+			}
+			#wb_Extension1
+				.panel
+				> :last-child.table
+				> tbody:last-child
+				> tr:last-child
+				td:last-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table-responsive
+				> :last-child.table
+				> tbody:last-child
+				> tr:last-child
+				td:last-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table
+				> tfoot:last-child
+				> tr:last-child
+				td:last-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table-responsive
+				> :last-child.table
+				> tfoot:last-child
+				> tr:last-child
+				td:last-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table
+				> tbody:last-child
+				> tr:last-child
+				th:last-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table-responsive
+				> :last-child.table
+				> tbody:last-child
+				> tr:last-child
+				th:last-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table
+				> tfoot:last-child
+				> tr:last-child
+				th:last-child,
+			#wb_Extension1
+				.panel
+				> :last-child.table-responsive
+				> :last-child.table
+				> tfoot:last-child
+				> tr:last-child
+				th:last-child {
+				border-bottom-right-radius: 3px;
+			}
+			#wb_Extension1 .panel > .table,
+			#wb_Extension1 .panel > .table-responsive > .table {
+				margin-bottom: 0px;
+			}
+			#wb_Extension1 .panel > .panel-body + .table,
+			#wb_Extension1 .panel > .panel-body + .table-responsive {
+				border-top: 1px solid #dddddd;
+			}
+			#wb_Extension1 th {
+				text-align: left;
+			}
+			#wb_Extension1 .table > thead > tr > th,
+			#wb_Extension1 .table > tbody > tr > th,
+			#wb_Extension1 .table > tfoot > tr > th,
+			#wb_Extension1 .table > thead > tr > td,
+			#wb_Extension1 .table > tbody > tr > td,
+			#wb_Extension1 .table > tfoot > tr > td {
+				padding: 8px;
+				line-height: 1.4285;
+				vertical-align: top;
+				border-top: 1px solid #dddddd;
+			}
+			#wb_Extension1 .table > thead > tr > th {
+				vertical-align: bottom;
+				border-bottom: 2px solid #dddddd;
+			}
+			.table > caption + thead > tr:first-child > th,
+			.table > colgroup + thead > tr:first-child > th,
+			.table > thead:first-child > tr:first-child > th,
+			.table > caption + thead > tr:first-child > td,
+			.table > colgroup + thead > tr:first-child > td,
+			.table > thead:first-child > tr:first-child > td {
+				border-top: 0;
+			}
+			#wb_Extension1 .table-hover > tbody > tr:hover > td,
+			#wb_Extension1 .table-hover > tbody > tr:hover > th {
+				background-color: #f5f5f5;
+			}
+			#wb_Extension1 .table-striped > tbody > tr:nth-child(odd) > td,
+			#wb_Extension1 .table-striped > tbody > tr:nth-child(odd) > th {
+				background-color: #f9f9f9;
+			}
+			#wb_Extension1 .form-control {
+				display: block;
+				width: 100%;
+				height: 34px;
+				padding: 6px 12px;
+				font-family: Arial;
+				font-size: 13px;
+				line-height: 1.4285;
+				color: #555555;
+				background-color: #ffffff;
+				background-image: none;
+				border: 1px solid #cccccc;
+				border-radius: 4px;
+				-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+				box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.075);
+				-webkit-transition: border-color ease-in-out 0.15s,
+					box-shadow ease-in-out 0.15s;
+				transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+			}
+			#wb_Extension1 .form-control:focus {
+				border-color: #4e73df;
+				outline: 0;
+				-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+					0 0 8px rgba(102, 175, 233, 0.6);
+				box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.075),
+					0px 0px 8px rgba(102, 175, 233, 0.6);
+			}
+			#wb_Extension1 .panel-title {
+				display: inline-block;
+				margin-top: 0px;
+				margin-bottom: 0px;
+				font-family: Arial;
+				font-weight: normal;
+				font-size: 13px;
+				font-style: normal;
+				color: inherit;
+			}
+			.pull-right {
+				float: right !important;
+			}
+			.panel-heading div span {
+				margin-left: 5px;
+			}
+			.panel-body {
+				display: none;
+			}
+			#wb_Extension1 .menu-icon {
+				font-size: 13px;
+				width: 13px;
+			}
+			.filter-hide {
+				display: none !important;
+			}
+			.paginate-show {
+				display: table-row;
+			}
+			.paginate-hide {
+				display: none;
+			}
+			#tbl_account_list .arrow-up {
+				display: inline-block;
+				width: 0;
+				height: 0;
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-bottom: 5px solid #000000;
+			}
+			#tbl_account_list .arrow-down {
+				display: inline-block;
+				width: 0;
+				height: 0;
+				border-left: 5px solid transparent;
+				border-right: 5px solid transparent;
+				border-top: 5px solid #000000;
+			}
+		</style>
+
+		<!-- hna script tae tabelau  -->
+		<script>
+			$(document).ready(function () {
+				$("#Extension1-filter").on("propertychange input", function (e) {
+					$(".Extension1-no-results").remove();
+					var $this = $(this);
+					var search = $this.val().toLowerCase();
+					var $target = $("#tbl_account_list");
+					var $rows = $target.find("tbody tr");
+					if (search == "") {
+						$rows.removeClass("filter-hide");
+						buildNav();
+						paginate();
+					} else {
+						$rows.each(function () {
+							var $this = $(this);
+							$this.text().toLowerCase().indexOf(search) === -1
+								? $this.addClass("filter-hide")
+								: $this.removeClass("filter-hide");
+						});
+						buildNav();
+						paginate();
+						if ($target.find("tbody tr:visible").size() === 0) {
+							var col_span = $target.find("tr").first().find("td").size();
+							var no_results = $(
+								'<tr class="Extension1-no-results"><td colspan="' +
+									col_span +
+									'">No results found</td></tr>'
+							);
+							$target.find("tbody").append(no_results);
+						}
+					}
+				});
+				$(".panel-heading span.filter").on("click", function (e) {
+					var $this = $(this),
+						$panel = $this.parents(".panel");
+					$panel.find(".panel-body").slideToggle(function () {
+						if ($this.css("display") != "none") {
+							$panel.find(".panel-body input").focus();
+						}
+					});
+				});
+				$("#tbl_account_list").each(function () {
+					var currentPage = 0;
+					var numPerPage = 5;
+					var $table = $(this);
+					var numRows = $table.find("tbody tr").length;
+					var numPages = Math.ceil(numRows / numPerPage);
+					var $pagination = $("#Extension1-pagination");
+					paginate = function () {
+						$pagination
+							.find("li")
+							.eq(currentPage + 1)
+							.addClass("active")
+							.siblings()
+							.removeClass("active");
+						var $prev = $pagination.find("li:first-child");
+						var $next = $pagination.find("li:last-child");
+						if (currentPage == 0) {
+							$prev.addClass("disabled");
+						} else {
+							$prev.removeClass("disabled");
+						}
+						if (currentPage == numPages - 1) {
+							$next.addClass("disabled");
+						} else {
+							$next.removeClass("disabled");
+						}
+						$table
+							.find("tbody tr")
+							.not(".filter-hide")
+							.removeClass("paginate-show")
+							.addClass("paginate-hide")
+							.slice(currentPage * numPerPage, (currentPage + 1) * numPerPage)
+							.removeClass("paginate-hide")
+							.addClass("paginate-show");
+					};
+					buildNav = function () {
+						currentPage = 0;
+						numRows = $table.find("tbody tr").not(".filter-hide").length;
+						numPages = Math.ceil(numRows / numPerPage);
+						$pagination
+							.find("li")
+							.not($pagination.find("li:first-child"))
+							.not($pagination.find("li:last-child"))
+							.remove();
+						for (var page = 0; page < numPages; page++) {
+							var item = "<a>" + (page + 1) + "</a>";
+							$("<li></li>")
+								.html(item)
+								.bind("click", { newPage: page }, function (event) {
+									currentPage = event.data["newPage"];
+									paginate();
+								})
+								.appendTo($pagination)
+								.addClass("clickable");
+						}
+						$pagination.find("li").eq(1).appendTo($pagination);
+					};
+					buildNav();
+					$pagination
+						.insertAfter($table.parent())
+						.find("li:nth-child(2)")
+						.addClass("active");
+					$pagination.find("li:first-child").click(function () {
+						if (currentPage > 0) {
+							currentPage--;
+						}
+						paginate();
+					});
+					$pagination.find("li:last-child").click(function () {
+						if (currentPage < numPages - 1) {
+							currentPage++;
+						}
+						paginate();
+					});
+					paginate();
+				});
+			});
+		</script>
+
+		<!-- script yekhlass hna  -->
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row flex-nowrap">
+				<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id="menu-col">
+					<div
+						class="
+							d-flex
+							flex-column
+							align-items-center align-items-sm-start
+							px-3
+							pt-2
+							text-white
+							min-vh-100
+						"
+					>
+						<a
+							href="#"
+							class="
+								d-flex
+								align-items-center
+								pb-3
+								mb-md-0
+								me-md-auto
+								text-white text-decoration-none
+							"
+						>
+							<div class="pe-2"><i class="bi bi-droplet-fill"></i></div>
+
+							<span class="fs-5 d-none d-sm-inline">NaSugr</span>
+						</a>
+
+						<ul
+							class="
+								nav nav-pills
+								flex-column
+								mb-sm-auto mb-0
+								align-items-center align-items-sm-start
+							"
+							id="menu"
+						>
+							<li class="nav-item">
+								<a href="acceuil.html" class="nav-link align-middle px-0 ps-3">
+									<i class="bi bi-house-door-fill" id="icon"></i>
+									<span class="ms-1 d-none d-sm-inline" id="item">Acceuil</span>
+								</a>
+							</li>
+
+							<hr />
+							<!-- Heading -->
+							<div class="sidebar-heading">Medecin</div>
+
+							<li>
+								<div class="ps-3">
+									<a
+										href="Profile_medecin.html"
+										class="nav-link px-0 align-middle"
+									>
+										<i class="bi bi-person-fill" id="icon"></i>
+										<span class="ms-1 d-none d-sm-inline" id="item"
+											>Mon profil</span
+										>
+									</a>
+								</div>
+							</li>
+
+							<li>
+								<div class="ms-3">
+									<a href="Agendat.html" class="nav-link px-0 align-middle">
+										<i class="bi bi-calendar-fill" id="icon"></i>
+										<span class="ms-1 d-none d-sm-inline" id="item"
+											>Mon agenda</span
+										></a
+									>
+								</div>
+							</li>
+
+							<li>
+								<div class="ms-3">
+									<a href="rdv.html" class="nav-link px-0 align-middle">
+										<i class="bi bi-app-indicator" id="icon"></i>
+										<span class="ms-1 d-none d-sm-inline" id="item"
+											>Demandes rdv</span
+										></a
+									>
+								</div>
+							</li>
+
+							<hr />
+
+							<div class="sidebar-heading">Patient</div>
+
+							<!-- Nav Item - Tables -->
+							<li class="nav-item">
+								<div class="ms-3">
+									<a href="liste.html" class="nav-link px-0 align-middle">
+										<i class="bi bi-list" id="icon"></i>
+										<span id="item">Liste des patients</span>
+									</a>
+								</div>
+							</li>
+
+							<!-- Nav Item - Pages Collapse Menu -->
+							<li class="nav-item">
+								<a
+									class="nav-link collapsed"
+									href="login.html"
+									data-toggle="collapse"
+									data-target="#collapsePages"
+									aria-expanded="true"
+									aria-controls="collapsePages"
+								>
+									<i class="bi bi-box-arrow-left" id="icon"></i>
+									<span id="item">Se deconnecter</span>
+								</a>
+								<div
+									id="collapsePages"
+									class="collapse"
+									aria-labelledby="headingPages"
+									data-parent="#accordionSidebar"
+								>
+									<div class="bg-white py-2 collapse-inner rounded"></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col py-3">
+					<!--Navigation bar -->
+					<nav class="navbar navbar-expand-lg navbar-light bg-white">
+						<div class="container-fluid">
+							<button
+								class="navbar-toggler"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#navbarSupportedContent"
+								aria-controls="navbarSupportedContent"
+								aria-expanded="false"
+								aria-label="Toggle navigation"
+							>
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<div
+								class="collapse navbar-collapse"
+								id="navbarSupportedContent"
+							></div>
+						</div>
+					</nav>
+
+					<!--Nav bar ends here -->
+
+					<div
+						class="
+							d-sm-flex
+							align-items-center
+							justify-content-between
+							mt-5
+							mx-5
+						"
+					>
+						<h1 class="h3 mb-0 text-gray-800">Demandes de rendez-vous</h1>
+					</div>
+					<br />
+					<br />
+					<div id="card">
+						<table class="table">
+							<thead>
+								<tr>
+									<th></th>
+								</tr>
+							</thead>
+
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-3"></div>
+		<!-- </div> -->
+		<!-- </div> -->
+		<!-- </div> -->
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"
+		></script>
+
+		<script type="text/javascript" src="rdv.js"></script>
+	</body>
+</html>
